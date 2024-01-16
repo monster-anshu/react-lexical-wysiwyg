@@ -1,4 +1,4 @@
-import React, { Dispatch, useCallback, useEffect } from 'react';
+import React, { useCallback, useEffect } from 'react';
 
 import {
   $isCodeNode,
@@ -62,11 +62,7 @@ function getCodeLanguageOptions(): [string, string][] {
 
 const CODE_LANGUAGE_OPTIONS = getCodeLanguageOptions();
 
-export default function ToolbarPlugin({
-  setIsLinkEditMode,
-}: {
-  setIsLinkEditMode: Dispatch<boolean>;
-}) {
+export default function ToolbarPlugin({}) {
   const [editor] = useLexicalComposerContext();
   const {
     activeEditor,
@@ -102,10 +98,10 @@ export default function ToolbarPlugin({
           event.preventDefault();
           let url: string | null;
           if (!isLink) {
-            setIsLinkEditMode(true);
+            // setIsLinkEditMode(true);
             url = sanitizeUrl('https://');
           } else {
-            setIsLinkEditMode(false);
+            // setIsLinkEditMode(false);
             url = null;
           }
           return activeEditor.dispatchCommand(TOGGLE_LINK_COMMAND, url);
@@ -114,7 +110,7 @@ export default function ToolbarPlugin({
       },
       COMMAND_PRIORITY_NORMAL
     );
-  }, [activeEditor, isLink, setIsLinkEditMode]);
+  }, [activeEditor, isLink]);
 
   const applyStyleText = useCallback(
     (styles: Record<string, string>, skipHistoryStack?: boolean) => {
@@ -302,7 +298,7 @@ export default function ToolbarPlugin({
   ];
 
   return (
-    <div className='flex items-center gap-4 overflow-auto whitespace-nowrap border-b bg-white px-5 py-3 text-sm'>
+    <div className='flex items-center gap-4 overflow-auto whitespace-nowrap rounded-t-lg border-b bg-white px-5 py-3 text-sm'>
       {toolbar1.map((item, index) => {
         return <ToolbarButton {...item} key={index} />;
       })}

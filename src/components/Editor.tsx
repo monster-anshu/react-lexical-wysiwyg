@@ -1,15 +1,35 @@
 'use client';
-import React, { ComponentProps, FC } from 'react';
+import React, { FC, ReactNode } from 'react';
+import ContentEditable from '@/components/ContentEditable';
+import Placeholder from '@/components/Placeholder';
+import LexicalErrorBoundary from '@lexical/react/LexicalErrorBoundary';
+import { HistoryPlugin } from '@lexical/react/LexicalHistoryPlugin';
+import { OnChangePlugin } from '@lexical/react/LexicalOnChangePlugin';
 import { RichTextPlugin } from '@lexical/react/LexicalRichTextPlugin';
 
-export interface IEditorProps extends ComponentProps<typeof RichTextPlugin> {}
+type OnChangePluginProps = React.ComponentProps<typeof OnChangePlugin>;
+export interface IEditorProps {
+  onChangePluginProps: OnChangePluginProps;
+  placeholder: ReactNode;
+  children?: ReactNode;
+}
 
-const Editor: FC<IEditorProps> = ({ ...props }) => {
+const Editor: FC<IEditorProps> = ({
+  onChangePluginProps,
+  placeholder,
+  children,
+}) => {
   return (
-    <div className=''>
-      <RichTextPlugin {...props} />
+    <div className='relative'>
+      <RichTextPlugin
+        ErrorBoundary={LexicalErrorBoundary}
+        contentEditable={<ContentEditable />}
+        placeholder={<Placeholder>{placeholder}</Placeholder>}
+      />
+      <HistoryPlugin />
+      <OnChangePlugin {...onChangePluginProps} />
+      {children as React.ReactElement}
     </div>
   );
 };
-
 export default Editor;

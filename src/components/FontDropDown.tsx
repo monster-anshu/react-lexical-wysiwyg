@@ -39,6 +39,7 @@ const FontDropDown: FC<IFontDropDownProps> = ({
     style === 'font-family'
       ? 'Formatting options for font family'
       : 'Formatting options for font size';
+  buttonAriaLabel;
 
   const options = (
     style === 'font-family' ? FONT_FAMILY_OPTIONS : FONT_SIZE_OPTIONS

@@ -9,11 +9,11 @@ import {
   ElementFormatType,
   NodeKey,
   SELECTION_CHANGE_COMMAND,
+  $isRootOrShadowRoot,
 } from 'lexical';
 
 import { getSelectedNode } from '@/utils/getSelectedNode';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
-import { $isRootOrShadowRoot } from 'lexical/LexicalUtils';
 
 import {
   $findMatchingParent,
