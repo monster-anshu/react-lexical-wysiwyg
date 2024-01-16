@@ -1,0 +1,65 @@
+{
+  "name": "react-lexical-wysiwyg",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build",
+    "build": "vite build",
+    "lint": "next lint",
+    "format": "prettier --write .",
+    "prepare": "husky install"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/monster-anshu/react-lexical-wysiwyg.git"
+  },
+  "author": "monster-anshu",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/monster-anshu/react-lexical-wysiwyg/issues"
+  },
+  "homepage": "https://github.com/monster-anshu/react-lexical-wysiwyg#readme",
+  "devDependencies": {
+    "@storybook/addon-essentials": "^7.6.8",
+    "@storybook/addon-interactions": "^7.6.8",
+    "@storybook/addon-links": "^7.6.8",
+    "@storybook/addon-onboarding": "^1.0.10",
+    "@storybook/blocks": "^7.6.8",
+    "@storybook/react": "^7.6.8",
+    "@storybook/react-vite": "^7.6.8",
+    "@storybook/test": "^7.6.8",
+    "@types/node": "^20.11.0",
+    "@types/react": "^18.2.47",
+    "@types/react-dom": "^18.2.18",
+    "autoprefixer": "^10.4.16",
+    "eslint": "^8.56.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.1.3",
+    "husky": "^8.0.3",
+    "lint-staged": "^15.2.0",
+    "prettier": "^3.2.2",
+    "prettier-plugin-organize-imports": "^3.2.4",
+    "prettier-plugin-tailwindcss": "^0.5.11",
+    "prop-types": "^15.8.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "sass": "^1.69.7",
+    "storybook": "^7.6.8",
+    "tailwindcss": "^3.4.1",
+    "typescipt": "^1.0.0",
+    "vite-plugin-dts": "^3.7.0",
+    "vite-tsconfig-paths": "^4.2.3"
+  },
+  "peerDependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "dependencies": {
+    "@lexical/react": "^0.12.6",
+    "lexical": "^0.12.6",
+    "react-icons": "^5.0.1",
+    "tailwind-merge": "^2.2.0"
+  }
+}
