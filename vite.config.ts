@@ -8,16 +8,16 @@ export default defineConfig({
   plugins: [react(), tsconfigPaths(), dts({ include: ['src'] })],
   build: {
     lib: {
-      entry: resolve(__dirname, 'src/index.tsx'),
+      entry: resolve(__dirname, 'src/stories/Editor.tsx'),
       formats: ['es'],
     },
     rollupOptions: {
       external: [
         'react',
-        'react/jsx-runtime',
+        'react-dom',
         '@lexical/react',
         'lexical',
-        'react-icons',
+        'react-icons/*',
         'tailwind-merge',
       ],
     },

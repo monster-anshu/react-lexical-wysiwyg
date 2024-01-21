@@ -1,4 +1,3 @@
-'use client';
 import Editor from '@/components/Editor';
 import ToolbarPlugin from '@/components/Toolbar';
 import '@/scss/global.scss';

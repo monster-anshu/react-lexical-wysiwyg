@@ -1,4 +1,3 @@
-'use client';
 import useOnClickOutside from '@/hooks/useOnOutsideClick';
 import { normalize } from '@/utils/normalize';
 import React, {

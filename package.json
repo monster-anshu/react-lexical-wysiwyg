@@ -2,7 +2,7 @@
   "name": "react-lexical-wysiwyg",
   "version": "0.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "src/index.ts",
   "scripts": {
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
@@ -16,12 +16,13 @@
     "url": "git+https://github.com/monster-anshu/react-lexical-wysiwyg.git"
   },
   "author": "monster-anshu",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/monster-anshu/react-lexical-wysiwyg/issues"
   },
   "homepage": "https://github.com/monster-anshu/react-lexical-wysiwyg#readme",
   "devDependencies": {
+    "@babel/preset-react": "^7.23.3",
     "@storybook/addon-essentials": "^7.6.10",
     "@storybook/addon-interactions": "^7.6.10",
     "@storybook/addon-links": "^7.6.10",

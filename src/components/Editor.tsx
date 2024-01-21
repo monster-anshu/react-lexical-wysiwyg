@@ -1,4 +1,3 @@
-'use client';
 import React, { FC, ReactNode } from 'react';
 import ContentEditable from '@/components/ContentEditable';
 import Placeholder from '@/components/Placeholder';
