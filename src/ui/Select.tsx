@@ -25,9 +25,7 @@ export interface ISelectProps<Option extends SelectOption = SelectOption> {
   disabled?: boolean;
 }
 
-const Select =
-
-<Option extends SelectOption>({
+const Select = <Option extends SelectOption>({
   onChange,
   options,
   value,
