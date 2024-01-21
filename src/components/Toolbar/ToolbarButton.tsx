@@ -32,7 +32,7 @@ const ToolbarButton: FC<IToolbarButtonProps> = ({
         onClick={handler}
         aria-label={label}
         className={twMerge(
-          'text-2xl',
+          'block text-xl',
           isActive ? 'text-gray-950' : 'text-gray-500',
           disabled ? 'text-gray-400' : ''
         )}

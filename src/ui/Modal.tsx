@@ -3,6 +3,7 @@ import { createPortal } from 'react-dom';
 
 import useOnClickOutside from '@/hooks/useOnOutsideClick';
 import './Modal.css';
+import { RxCross2 } from 'react-icons/rx';
 
 interface IModalProps {
   onClose: () => void;
@@ -41,17 +42,21 @@ function PortalImpl({
 
   return (
     <div className='Modal__overlay' role='dialog'>
-      <div className='Modal__modal' tabIndex={-1} ref={modalRef}>
-        <h2 className='Modal__title'>{title}</h2>
+      <div
+        className='Modal__modal relative max-h-full w-full max-w-lg rounded-lg bg-white p-3.5'
+        tabIndex={-1}
+        ref={modalRef}
+      >
+        <h2 className='text-base font-medium'>{title}</h2>
         <button
-          className='Modal__closeButton'
+          className='absolute right-4 top-4'
           aria-label='Close modal'
           type='button'
           onClick={onClose}
         >
-          X
+          <RxCross2 />
         </button>
-        <div className='Modal__content'>{children}</div>
+        <div className='p-4'>{children}</div>
       </div>
     </div>
   );

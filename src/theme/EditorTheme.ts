@@ -1,6 +1,7 @@
 import type { EditorThemeClasses } from 'lexical';
 import type { EditorThemeClassName } from 'lexical/LexicalEditor';
 import styles from './editor-theme.module.scss';
+import './theme.scss';
 
 const theme: EditorThemeClasses = {
   blockCursor: styles['EditorTheme__blockCursor'],
@@ -51,9 +52,7 @@ const theme: EditorThemeClasses = {
     h5: styles['EditorTheme__h5'],
     h6: styles['EditorTheme__h6'],
   },
-  image: styles['editor-image'],
   indent: styles['EditorTheme__indent'],
-  inlineImage: styles['inline-editor-image'],
   layoutContainer: styles['EditorTheme__layoutContainer'],
   layoutItem: styles['EditorTheme__layoutItem'],
   link: styles['EditorTheme__link'],
@@ -104,6 +103,8 @@ const theme: EditorThemeClasses = {
     underline: styles['EditorTheme__textUnderline'],
     underlineStrikethrough: styles['EditorTheme__textUnderlineStrikethrough'],
   },
+  image: 'editor-image',
+  inlineImage: 'inline-editor-image',
 };
 
 export default theme;

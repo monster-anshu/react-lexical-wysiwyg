@@ -1,4 +1,4 @@
-import React, { FC, useCallback } from 'react';
+import React, { FC, ReactNode, useCallback } from 'react';
 import Select from '@/ui/Select';
 import {
   $INTERNAL_isPointSelection,
@@ -6,6 +6,7 @@ import {
   LexicalEditor,
 } from 'lexical';
 import { $patchStyleText } from '@lexical/selection';
+import { AiOutlineFontSize } from 'react-icons/ai';
 import { FONT_FAMILY_OPTIONS, FONT_SIZE_OPTIONS } from '@/common';
 
 interface IFontDropDownProps {
@@ -48,13 +49,18 @@ const FontDropDown: FC<IFontDropDownProps> = ({
       label: text,
       value: option,
       handler: () => handleClick(option),
+      icon: null as ReactNode,
     };
   });
 
   return (
     <Select
       options={options}
-      value={value}
+      value={{
+        label: value,
+        value,
+        icon: <AiOutlineFontSize />,
+      }}
       onChange={(option) => option.handler()}
       placeholder={style === 'font-family' ? 'Font Family' : 'Font Size'}
       disabled={disabled}

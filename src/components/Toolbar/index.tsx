@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { Suspense, useCallback, useEffect } from 'react';
 
 import {
   $isCodeNode,
@@ -28,11 +28,14 @@ import {
   MdStrikethroughS,
   MdSuperscript,
   MdSubscript,
-  MdFormatOverline,
-  MdOutlineTurnLeft,
-  MdOutlineTurnRight,
   MdCode,
 } from 'react-icons/md';
+import { BiUndo, BiRedo } from 'react-icons/bi';
+import { LuRemoveFormatting } from 'react-icons/lu';
+import { RxLetterCaseCapitalize } from 'react-icons/rx';
+import { FiPlus } from 'react-icons/fi';
+import { PiSquareSplitVerticalLight } from 'react-icons/pi';
+import { CiImageOn } from 'react-icons/ci';
 
 const IS_APPLE = false;
 
@@ -47,6 +50,15 @@ import BlockFormatDropDown from './BlockFormatDropDown';
 import { $clearFormatting } from '@/functions/clearFormatting';
 import { useFormat } from '@/hooks/useFormat';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
+import FontSize from './FontSize';
+import useModal from '@/hooks/useModal';
+
+const InsertImageDialogLazy = React.lazy(async () => {
+  return import('@/plugin/ImagePlugin/InsertImageDialog');
+});
+const InsertInlineImageDialogLazy = React.lazy(async () => {
+  return import('@/plugin/InlineImagePlugin/InsertImageDialog');
+});
 
 function getCodeLanguageOptions(): [string, string][] {
   const options: [string, string][] = [];
@@ -64,6 +76,8 @@ const CODE_LANGUAGE_OPTIONS = getCodeLanguageOptions();
 
 export default function ToolbarPlugin({}) {
   const [editor] = useLexicalComposerContext();
+  const [modal, showModal] = useModal();
+
   const {
     activeEditor,
     blockType,
@@ -179,14 +193,14 @@ export default function ToolbarPlugin({}) {
   const toolbar2: IToolbarButton[] = [
     {
       label: 'Undo',
-      icon: <MdOutlineTurnLeft />,
+      icon: <BiUndo />,
       handler: () => activeEditor.dispatchCommand(UNDO_COMMAND, undefined),
       shortcut: IS_APPLE ? 'Undo (⌘Z)' : 'Undo (Ctrl+Z)',
       disabled: !canUndo,
     },
     {
       label: 'Redo',
-      icon: <MdOutlineTurnRight />,
+      icon: <BiRedo />,
       handler: () => activeEditor.dispatchCommand(REDO_COMMAND, undefined),
       shortcut: IS_APPLE ? 'Redo (⌘Y)' : 'Redo (Ctrl+Y)',
       disabled: !canRedo,
@@ -239,7 +253,6 @@ export default function ToolbarPlugin({}) {
       isActive: isUnderline,
       icon: <MdFormatUnderlined />,
       shortcut: IS_APPLE ? 'Underline (⌘U)' : 'Underline (Ctrl+U)',
-      hide: true,
     },
     {
       label: 'Code',
@@ -249,14 +262,12 @@ export default function ToolbarPlugin({}) {
       isActive: isCode,
       icon: <MdCode />,
       shortcut: IS_APPLE ? 'Code (⌘K)' : 'Code (Ctrl+K)',
-      hide: true,
     },
     {
       label: 'Inset Link',
       handler: insertLink,
       isActive: isLink,
       icon: <MdAddLink />,
-      hide: true,
     },
   ];
 
@@ -283,7 +294,7 @@ export default function ToolbarPlugin({}) {
       label: 'Clear Formatting',
       value: 'clear',
       handler: clearFormatting,
-      icon: <MdFormatOverline />,
+      icon: <LuRemoveFormatting />,
     },
   ];
 
@@ -294,11 +305,42 @@ export default function ToolbarPlugin({}) {
       handler: () => {
         activeEditor.dispatchCommand(INSERT_HORIZONTAL_RULE_COMMAND, undefined);
       },
+      icon: <PiSquareSplitVerticalLight />,
+    },
+    {
+      label: 'Image',
+      value: 'image',
+      handler: () => {
+        showModal('Insert Image', (onClose) => (
+          <Suspense fallback={null}>
+            <InsertImageDialogLazy
+              activeEditor={activeEditor}
+              onClose={onClose}
+            />
+          </Suspense>
+        ));
+      },
+      icon: <CiImageOn />,
+    },
+    {
+      label: 'Inline Image',
+      value: 'inline image',
+      handler: () => {
+        showModal('Insert Inline Image', (onClose) => (
+          <Suspense fallback={null}>
+            <InsertInlineImageDialogLazy
+              activeEditor={activeEditor}
+              onClose={onClose}
+            />
+          </Suspense>
+        ));
+      },
+      icon: <CiImageOn />,
     },
   ];
 
   return (
-    <div className='flex items-center gap-4 overflow-auto whitespace-nowrap rounded-t-lg border-b bg-white px-5 py-3 text-sm'>
+    <div className='flex items-center gap-2.5 overflow-auto whitespace-nowrap rounded-t-lg border-b bg-white px-4 py-2 text-sm'>
       {toolbar1.map((item, index) => {
         return <ToolbarButton {...item} key={index} />;
       })}
@@ -328,11 +370,11 @@ export default function ToolbarPlugin({}) {
             value={fontFamily}
             editor={activeEditor}
           />
-          <FontDropDown
+          <Divider />
+          <FontSize
             disabled={!isEditable}
-            style={'font-size'}
-            value={fontSize}
             editor={activeEditor}
+            selectionFontSize={fontSize.slice(0, -2)}
           />
           <Divider />
           {toolbar2.map((item, index) => {
@@ -341,7 +383,7 @@ export default function ToolbarPlugin({}) {
           <Select
             options={formattingOptions}
             onChange={(option) => option.handler()}
-            placeholder='Formatting options'
+            placeholder={<RxLetterCaseCapitalize size={18} />}
             value={null}
           />
           <Divider />
@@ -355,7 +397,12 @@ export default function ToolbarPlugin({}) {
             options={interOptions}
             onChange={(option) => option.handler()}
             value={null}
-            placeholder='Insert'
+            placeholder={
+              <>
+                <FiPlus />
+                Insert
+              </>
+            }
           />
         </>
       )}
@@ -366,6 +413,7 @@ export default function ToolbarPlugin({}) {
         editor={activeEditor}
         isRTL={isRTL}
       />
+      {modal}
     </div>
   );
 }

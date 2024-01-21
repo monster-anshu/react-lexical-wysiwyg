@@ -20,14 +20,13 @@ import {
 } from '@lexical/list';
 import { $createCodeNode } from '@lexical/code';
 
-import { TbLetterP } from 'react-icons/tb';
+import { BsTextParagraph } from 'react-icons/bs';
 import {
   LuHeading1,
   LuHeading2,
   LuHeading3,
   LuHeading4,
   LuHeading5,
-  LuHeading6,
 } from 'react-icons/lu';
 import {
   MdCode,
@@ -129,7 +128,7 @@ const BlockFormatDropDown: FC<IBlockFormatProps> = ({
 
   const options = [
     {
-      icon: <TbLetterP />,
+      icon: <BsTextParagraph />,
       label: 'Normal',
       handler: formatParagraph,
       value: 'paragraph',
@@ -154,21 +153,15 @@ const BlockFormatDropDown: FC<IBlockFormatProps> = ({
     },
     {
       icon: <LuHeading4 />,
-      label: 'Heading 3',
+      label: 'Heading 4',
       handler: () => formatHeading('h4'),
       value: 'h4',
     },
     {
       icon: <LuHeading5 />,
-      label: 'Heading 3',
+      label: 'Heading 5',
       handler: () => formatHeading('h5'),
       value: 'h5',
-    },
-    {
-      icon: <LuHeading6 />,
-      label: 'Heading 3',
-      handler: () => formatHeading('h6'),
-      value: 'h6',
     },
     {
       icon: <MdOutlineFormatListBulleted />,
@@ -201,7 +194,6 @@ const BlockFormatDropDown: FC<IBlockFormatProps> = ({
       value: 'code',
     },
   ];
-
   return (
     <Select
       options={options}

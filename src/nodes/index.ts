@@ -10,6 +10,10 @@ import { HorizontalRuleNode } from '@lexical/react/LexicalHorizontalRuleNode';
 import { HeadingNode, QuoteNode } from '@lexical/rich-text';
 import { TableCellNode, TableNode, TableRowNode } from '@lexical/table';
 
+// custom nodes
+import { ImageNode } from './ImageNode';
+import { InlineImageNode } from './InlineImageNode';
+
 const Nodes: Array<Klass<LexicalNode>> = [
   HeadingNode,
   ListNode,
@@ -26,6 +30,8 @@ const Nodes: Array<Klass<LexicalNode>> = [
   OverflowNode,
   HorizontalRuleNode,
   MarkNode,
+  ImageNode,
+  InlineImageNode,
 ];
 
 export default Nodes;

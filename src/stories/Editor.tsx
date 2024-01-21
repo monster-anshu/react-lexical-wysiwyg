@@ -5,10 +5,17 @@ import '@/scss/global.scss';
 import { LexicalComposer } from '@lexical/react/LexicalComposer';
 import type { EditorState, LexicalEditor } from 'lexical';
 import React, { FC } from 'react';
+import theme from '@/theme/EditorTheme';
+import Nodes from '@/nodes';
+import ImagesPlugin from '@/plugin/ImagePlugin';
+import DragDropPaste from '@/plugin/DragDropPastePlugin';
+import InlineImagePlugin from '@/plugin/InlineImagePlugin';
 
 export interface IExampleEditorProps {
   onChange: (state: EditorState, editor: LexicalEditor) => void;
 }
+
+// const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 const ExampleEditor: FC<IExampleEditorProps> = ({ onChange }) => {
   return (
@@ -16,8 +23,10 @@ const ExampleEditor: FC<IExampleEditorProps> = ({ onChange }) => {
       <LexicalComposer
         initialConfig={{
           namespace: 'example',
-          onError(error) {
-            console.error(error);
+          theme: theme,
+          nodes: Nodes,
+          onError() {
+            // console.error(error);
           },
         }}
       >
@@ -27,7 +36,11 @@ const ExampleEditor: FC<IExampleEditorProps> = ({ onChange }) => {
             onChange,
           }}
           placeholder='Type something...'
-        />
+        >
+          <ImagesPlugin />
+          <InlineImagePlugin />
+          <DragDropPaste />
+        </Editor>
       </LexicalComposer>
     </div>
   );

@@ -1,4 +1,6 @@
 'use client';
+import useOnClickOutside from '@/hooks/useOnOutsideClick';
+import { normalize } from '@/utils/normalize';
 import React, {
   ReactNode,
   useCallback,
@@ -7,30 +9,25 @@ import React, {
   useState,
 } from 'react';
 import { createPortal } from 'react-dom';
-import { normalize } from '@/utils/normalize';
-import useOnClickOutside from '@/hooks/useOnOutsideClick';
+import { twMerge } from 'tailwind-merge';
 
 export type SelectOption = {
-  label: string;
   value: string;
+  label: ReactNode;
   icon?: ReactNode;
 };
 
-export const createSelectOption = <Option extends SelectOption>(
-  option: Option
-) => {
-  return option;
-};
-
-export interface ISelectProps<Option extends SelectOption> {
+export interface ISelectProps<Option extends SelectOption = SelectOption> {
   options: Option[];
-  value: string | null;
+  value: string | null | Partial<Option>;
   onChange: (option: Option) => void;
   placeholder?: ReactNode;
   disabled?: boolean;
 }
 
-const Select = <Option extends SelectOption>({
+const Select =
+
+<Option extends SelectOption>({
   onChange,
   options,
   value,
@@ -38,7 +35,7 @@ const Select = <Option extends SelectOption>({
 }: ISelectProps<Option>) => {
   const optionsRecord = normalize(options, 'value');
   const selectedOption =
-    typeof value === 'string' ? optionsRecord[value] : null;
+    typeof value === 'string' ? optionsRecord[value] ?? null : value ?? null;
   const containerRef = useRef<HTMLDivElement>(null);
   const optionContainerRef = useRef<HTMLDivElement>(null);
 
@@ -108,8 +105,8 @@ const Select = <Option extends SelectOption>({
 
   const Options = () => {
     return (
-      <div ref={optionContainerRef} className='fixed z-10 flex  py-1 text-sm'>
-        <div className='w-full overflow-auto rounded border bg-white shadow'>
+      <div ref={optionContainerRef} className='fixed z-10 flex py-1 text-sm'>
+        <div className='w-full overflow-auto rounded border bg-white p-1 shadow'>
           {options.map((option) => {
             return (
               <button
@@ -118,7 +115,7 @@ const Select = <Option extends SelectOption>({
                   onChange(option);
                   setOpen(false);
                 }}
-                className='flex w-full items-center gap-2 px-2 py-2 text-left hover:bg-gray-200'
+                className='flex w-full items-center gap-2 rounded px-2 py-2 text-left hover:bg-gray-200'
                 onMouseDown={(e) => {
                   e.preventDefault();
                 }}
@@ -136,14 +133,28 @@ const Select = <Option extends SelectOption>({
   const portal = createPortal(Options(), document.body);
 
   return (
-    <div className='rounded bg-gray-100 px-4 py-1' ref={containerRef}>
+    <div
+      className={twMerge(
+        'rounded px-4 py-1 hover:bg-gray-100',
+        open ? 'bg-gray-100' : ''
+      )}
+      ref={containerRef}
+    >
       <div
         onClick={() => setOpen(!open)}
         onMouseDown={(e) => {
           e.preventDefault();
         }}
+        className='flex cursor-pointer items-center gap-2 text-sm'
       >
-        {selectedOption?.icon || selectedOption?.label || placeholder}
+        {!selectedOption ? (
+          placeholder
+        ) : (
+          <>
+            {selectedOption.icon}
+            {selectedOption.label}
+          </>
+        )}
       </div>
       {open ? portal : null}
     </div>

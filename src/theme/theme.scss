@@ -1,0 +1,25 @@
+.editor-image {
+  cursor: default;
+  display: inline-block;
+  position: relative;
+  user-select: none;
+}
+
+.inline-editor-image {
+  cursor: default;
+  display: inline-block;
+  position: relative;
+  z-index: 1;
+}
+
+.inline-editor-image.position-left {
+  float: left;
+}
+
+.inline-editor-image.position-right {
+  float: right;
+}
+
+.inline-editor-image.position-full {
+  float: none;
+}
