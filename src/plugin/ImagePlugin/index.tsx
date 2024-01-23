@@ -9,7 +9,7 @@ import {
   DRAGSTART_COMMAND,
   DROP_COMMAND,
 } from 'lexical';
-import { $createImageNode, ImageNode, ImagePayload } from '@/nodes/ImageNode';
+import { ImageNode } from '@/nodes/ImageNode';
 import {
   INSERT_IMAGE_COMMAND,
   InsertImagePayload,
@@ -22,10 +22,10 @@ import {
 
 interface IImageComponentProps {
   captionsEnabled?: boolean;
-  onImageUpload?(file: InsertImagePayload): Promise<ImagePayload>;
+  onImageUpload?(file: InsertImagePayload): Promise<string | null>;
 }
 
-export default function InlineImagePlugin({
+export default function ImagePlugin({
   captionsEnabled,
   onImageUpload,
 }: IImageComponentProps) {
@@ -33,7 +33,7 @@ export default function InlineImagePlugin({
 
   useEffect(() => {
     if (!editor.hasNodes([ImageNode])) {
-      throw new Error('InlineImagePlugin: ImageNode not registered on editor');
+      throw new Error('ImagePlugin: ImageNode not registered on editor');
     }
 
     return mergeRegister(
@@ -53,10 +53,10 @@ export default function InlineImagePlugin({
             src: url,
           });
           if (file && onImageUpload) {
-            onImageUpload(payload).then((payload) => {
+            onImageUpload(payload).then((src) => {
+              if (!src) return;
               editor.update(() => {
-                const imageNode = $createImageNode(payload);
-                createdNode.replace(imageNode);
+                createdNode.setSrc(src);
               });
             });
           }

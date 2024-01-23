@@ -10,6 +10,8 @@ import {
   NodeKey,
   SELECTION_CHANGE_COMMAND,
   $isRootOrShadowRoot,
+  $isTextNode,
+  $isParagraphNode,
 } from 'lexical';
 
 import { getSelectedNode } from '@/utils/getSelectedNode';
@@ -34,7 +36,11 @@ import { $isTableNode } from '@lexical/table';
 
 import { $isListNode, ListNode } from '@lexical/list';
 
-import { $isCodeNode, CODE_LANGUAGE_MAP } from '@lexical/code';
+import {
+  $isCodeNode,
+  CODE_LANGUAGE_MAP,
+  $isCodeHighlightNode,
+} from '@lexical/code';
 
 import { BLOCK_TYPES, BlockType, RootType } from '@/common';
 
@@ -64,6 +70,7 @@ export function useFormat() {
   const [isRTL, setIsRTL] = useState(false);
   const [codeLanguage, setCodeLanguage] = useState<string>('');
   const [isEditable, setIsEditable] = useState(() => editor.isEditable());
+  const [isText, setIsText] = useState(false);
 
   const $updateToolbar = useCallback(() => {
     const selection = $getSelection();
@@ -175,15 +182,60 @@ export function useFormat() {
     }
   }, [activeEditor]);
 
+  const $updatePopup = useCallback(() => {
+    editor.getEditorState().read(() => {
+      // Should not to pop up the floating toolbar when using IME input
+      if (editor.isComposing()) {
+        return;
+      }
+      const selection = $getSelection();
+      const nativeSelection = window.getSelection();
+      const rootElement = editor.getRootElement();
+
+      if (
+        nativeSelection !== null &&
+        (!$isRangeSelection(selection) ||
+          rootElement === null ||
+          !rootElement.contains(nativeSelection.anchorNode))
+      ) {
+        setIsText(false);
+        return;
+      }
+
+      if (!$isRangeSelection(selection)) {
+        return;
+      }
+
+      const node = getSelectedNode(selection);
+
+      if (
+        !$isCodeHighlightNode(selection.anchor.getNode()) &&
+        selection.getTextContent() !== ''
+      ) {
+        setIsText($isTextNode(node) || $isParagraphNode(node));
+      } else {
+        setIsText(false);
+      }
+
+      const rawTextContent = selection.getTextContent().replace(/\n/g, '');
+      if (!selection.isCollapsed() && rawTextContent === '') {
+        setIsText(false);
+        return;
+      }
+    });
+  }, [editor]);
+
   useEffect(() => {
-    return editor.registerCommand(
-      SELECTION_CHANGE_COMMAND,
-      (_payload, newEditor) => {
-        $updateToolbar();
-        setActiveEditor(newEditor);
-        return false;
-      },
-      COMMAND_PRIORITY_CRITICAL
+    return mergeRegister(
+      editor.registerCommand(
+        SELECTION_CHANGE_COMMAND,
+        (_payload, newEditor) => {
+          $updateToolbar();
+          setActiveEditor(newEditor);
+          return false;
+        },
+        COMMAND_PRIORITY_CRITICAL
+      )
     );
   }, [editor, $updateToolbar]);
 
@@ -195,6 +247,7 @@ export function useFormat() {
       activeEditor.registerUpdateListener(({ editorState }) => {
         editorState.read(() => {
           $updateToolbar();
+          $updatePopup();
         });
       }),
       activeEditor.registerCommand<boolean>(
@@ -214,7 +267,14 @@ export function useFormat() {
         COMMAND_PRIORITY_CRITICAL
       )
     );
-  }, [$updateToolbar, activeEditor, editor]);
+  }, [$updatePopup, $updateToolbar, activeEditor, editor]);
+
+  useEffect(() => {
+    document.addEventListener('selectionchange', $updatePopup);
+    return () => {
+      document.removeEventListener('selectionchange', $updatePopup);
+    };
+  }, [$updatePopup]);
 
   return {
     activeEditor,
@@ -239,5 +299,6 @@ export function useFormat() {
     canRedo,
     isRTL,
     codeLanguage,
+    isText,
   };
 }

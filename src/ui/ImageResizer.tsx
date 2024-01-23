@@ -21,9 +21,6 @@ export interface IImageResizerProps {
   maxWidth?: number;
   onResizeEnd: (width: 'inherit' | number, height: 'inherit' | number) => void;
   onResizeStart: () => void;
-  setShowCaption: (show: boolean) => void;
-  showCaption: boolean;
-  captionsEnabled: boolean;
 }
 
 export default function ImageResizer({

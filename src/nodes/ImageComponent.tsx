@@ -7,15 +7,12 @@ import {
   $getSelection,
   $isNodeSelection,
   $isRangeSelection,
-  $setSelection,
   CLICK_COMMAND,
   COMMAND_PRIORITY_LOW,
   createCommand,
   DRAGSTART_COMMAND,
   KEY_BACKSPACE_COMMAND,
   KEY_DELETE_COMMAND,
-  KEY_ENTER_COMMAND,
-  KEY_ESCAPE_COMMAND,
   SELECTION_CHANGE_COMMAND,
   BaseSelection,
   LexicalCommand,
@@ -23,26 +20,23 @@ import {
   NodeKey,
 } from 'lexical';
 
-import ImageResizer from '../ui/ImageResizer';
 import { $isImageNode } from './ImageNode';
 
 import { twMerge } from 'tailwind-merge';
 import { LazyImage } from './LazyImage';
+import ImageResizer from '@/ui/ImageResizer';
 
 export const RIGHT_CLICK_IMAGE_COMMAND: LexicalCommand<MouseEvent> =
   createCommand('RIGHT_CLICK_IMAGE_COMMAND');
 
 export interface IImageComponentProps {
   altText: string;
-  caption: LexicalEditor;
   height: 'inherit' | number;
   maxWidth: number;
   nodeKey: NodeKey;
   resizable: boolean;
-  showCaption: boolean;
   src: string;
   width: 'inherit' | number;
-  captionsEnabled: boolean;
 }
 
 export default function ImageComponent({
@@ -53,9 +47,6 @@ export default function ImageComponent({
   height,
   maxWidth,
   resizable,
-  showCaption,
-  caption,
-  captionsEnabled,
 }: IImageComponentProps) {
   const imageRef = useRef<null | HTMLImageElement>(null);
   const buttonRef = useRef<HTMLButtonElement | null>(null);
@@ -79,56 +70,6 @@ export default function ImageComponent({
       return false;
     },
     [isSelected, nodeKey]
-  );
-
-  const onEnter = useCallback(
-    (event: KeyboardEvent) => {
-      const latestSelection = $getSelection();
-      const buttonElem = buttonRef.current;
-      if (
-        isSelected &&
-        $isNodeSelection(latestSelection) &&
-        latestSelection.getNodes().length === 1
-      ) {
-        if (showCaption) {
-          // Move focus into nested editor
-          $setSelection(null);
-          event.preventDefault();
-          caption.focus();
-          return true;
-        } else if (
-          buttonElem !== null &&
-          buttonElem !== document.activeElement
-        ) {
-          event.preventDefault();
-          buttonElem.focus();
-          return true;
-        }
-      }
-      return false;
-    },
-    [caption, isSelected, showCaption]
-  );
-
-  const onEscape = useCallback(
-    (event: KeyboardEvent) => {
-      if (
-        activeEditorRef.current === caption ||
-        buttonRef.current === event.target
-      ) {
-        $setSelection(null);
-        editor.update(() => {
-          setSelected(true);
-          const parentRootElement = editor.getRootElement();
-          if (parentRootElement !== null) {
-            parentRootElement.focus();
-          }
-        });
-        return true;
-      }
-      return false;
-    },
-    [caption, editor, setSelected]
   );
 
   const onClick = useCallback(
@@ -222,9 +163,7 @@ export default function ImageComponent({
         KEY_BACKSPACE_COMMAND,
         onDelete,
         COMMAND_PRIORITY_LOW
-      ),
-      editor.registerCommand(KEY_ENTER_COMMAND, onEnter, COMMAND_PRIORITY_LOW),
-      editor.registerCommand(KEY_ESCAPE_COMMAND, onEscape, COMMAND_PRIORITY_LOW)
+      )
     );
 
     rootElement?.addEventListener('contextmenu', onRightClick);
@@ -241,21 +180,10 @@ export default function ImageComponent({
     isSelected,
     nodeKey,
     onDelete,
-    onEnter,
-    onEscape,
     onClick,
     onRightClick,
     setSelected,
   ]);
-
-  const setShowCaption = () => {
-    editor.update(() => {
-      const node = $getNodeByKey(nodeKey);
-      if ($isImageNode(node)) {
-        node.setShowCaption(true);
-      }
-    });
-  };
 
   const onResizeEnd = (
     nextWidth: 'inherit' | number,
@@ -302,15 +230,12 @@ export default function ImageComponent({
       </div>
       {resizable && $isNodeSelection(selection) && isFocused && (
         <ImageResizer
-          showCaption={showCaption}
-          setShowCaption={setShowCaption}
           editor={editor}
           buttonRef={buttonRef}
           imageRef={imageRef}
           maxWidth={maxWidth}
           onResizeStart={onResizeStart}
           onResizeEnd={onResizeEnd}
-          captionsEnabled={captionsEnabled}
         />
       )}
     </>

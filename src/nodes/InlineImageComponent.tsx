@@ -15,14 +15,11 @@ import {
   $getNodeByKey,
   $getSelection,
   $isNodeSelection,
-  $setSelection,
   CLICK_COMMAND,
   COMMAND_PRIORITY_LOW,
   DRAGSTART_COMMAND,
   KEY_BACKSPACE_COMMAND,
   KEY_DELETE_COMMAND,
-  KEY_ENTER_COMMAND,
-  KEY_ESCAPE_COMMAND,
   SELECTION_CHANGE_COMMAND,
 } from 'lexical';
 
@@ -37,10 +34,8 @@ import { RIGHT_CLICK_IMAGE_COMMAND } from './ImageComponent';
 
 export interface IInlineImageComponentProps {
   altText: string;
-  caption: LexicalEditor;
   height: 'inherit' | number;
   nodeKey: NodeKey;
-  showCaption: boolean;
   src: string;
   width: 'inherit' | number;
   position: Position;
@@ -52,8 +47,6 @@ export default function InlineImageComponent({
   nodeKey,
   width,
   height,
-  showCaption,
-  caption,
   position,
 }: IInlineImageComponentProps) {
   const [modal, showModal] = useModal();
@@ -79,56 +72,6 @@ export default function InlineImageComponent({
       return false;
     },
     [isSelected, nodeKey]
-  );
-
-  const onEnter = useCallback(
-    (event: KeyboardEvent) => {
-      const latestSelection = $getSelection();
-      const buttonElem = buttonRef.current;
-      if (
-        isSelected &&
-        $isNodeSelection(latestSelection) &&
-        latestSelection.getNodes().length === 1
-      ) {
-        if (showCaption) {
-          // Move focus into nested editor
-          $setSelection(null);
-          event.preventDefault();
-          caption.focus();
-          return true;
-        } else if (
-          buttonElem !== null &&
-          buttonElem !== document.activeElement
-        ) {
-          event.preventDefault();
-          buttonElem.focus();
-          return true;
-        }
-      }
-      return false;
-    },
-    [caption, isSelected, showCaption]
-  );
-
-  const onEscape = useCallback(
-    (event: KeyboardEvent) => {
-      if (
-        activeEditorRef.current === caption ||
-        buttonRef.current === event.target
-      ) {
-        $setSelection(null);
-        editor.update(() => {
-          setSelected(true);
-          const parentRootElement = editor.getRootElement();
-          if (parentRootElement !== null) {
-            parentRootElement.focus();
-          }
-        });
-        return true;
-      }
-      return false;
-    },
-    [caption, editor, setSelected]
   );
 
   const onClick = useCallback(
@@ -201,9 +144,7 @@ export default function InlineImageComponent({
         KEY_BACKSPACE_COMMAND,
         onDelete,
         COMMAND_PRIORITY_LOW
-      ),
-      editor.registerCommand(KEY_ENTER_COMMAND, onEnter, COMMAND_PRIORITY_LOW),
-      editor.registerCommand(KEY_ESCAPE_COMMAND, onEscape, COMMAND_PRIORITY_LOW)
+      )
     );
     return () => {
       isMounted = false;
@@ -215,8 +156,6 @@ export default function InlineImageComponent({
     isSelected,
     nodeKey,
     onDelete,
-    onEnter,
-    onEscape,
     setSelected,
     onClick,
   ]);
@@ -282,14 +221,11 @@ export default function InlineImageComponent({
         </div>
         {$isNodeSelection(selection) && isFocused && (
           <ImageResizer
-            showCaption={showCaption}
             editor={editor}
             buttonRef={buttonRef}
             imageRef={imageRef}
             onResizeStart={onResizeStart}
             onResizeEnd={onResizeEnd}
-            captionsEnabled={false}
-            setShowCaption={() => null}
           />
         )}
       </>
@@ -314,15 +250,10 @@ export function UpdateInlineImageDialog({
     () => $getNodeByKey(nodeKey) as InlineImageNode
   );
   const [altText, setAltText] = useState(node.getAltText());
-  const [showCaption, setShowCaption] = useState(node.getShowCaption());
   const [position, setPosition] = useState<Position>(node.getPosition());
 
-  const handleShowCaptionChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setShowCaption(e.target.checked);
-  };
-
   const handleOnConfirm = () => {
-    const payload = { altText, position, showCaption };
+    const payload = { altText, position };
     if (node) {
       activeEditor.update(() => {
         node.update(payload);
@@ -352,15 +283,6 @@ export function UpdateInlineImageDialog({
         <option value='full'>Full Width</option>
       </select>
 
-      <div className='flex gap-2'>
-        <input
-          id='caption'
-          type='checkbox'
-          checked={showCaption}
-          onChange={handleShowCaptionChange}
-        />
-        <label htmlFor='caption'>Show Caption</label>
-      </div>
       <Button onClick={() => handleOnConfirm()}>Confirm</Button>
     </div>
   );

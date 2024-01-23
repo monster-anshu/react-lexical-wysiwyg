@@ -18,18 +18,14 @@ import {
   onDragover,
   onDrop,
 } from './functions';
-import {
-  $createInlineImageNode,
-  InlineImageNode,
-  InlineImagePayload,
-} from '@/nodes/InlineImageNode';
+import { InlineImageNode } from '@/nodes/InlineImageNode';
 
 interface IImageComponentProps {
   captionsEnabled?: boolean;
-  onImageUpload?(file: InsertInlineImagePayload): Promise<InlineImagePayload>;
+  onImageUpload?(file: InsertInlineImagePayload): Promise<string | null>;
 }
 
-export default function ImagesPlugin({
+export default function InlineImagePlugin({
   captionsEnabled,
   onImageUpload,
 }: IImageComponentProps) {
@@ -37,7 +33,7 @@ export default function ImagesPlugin({
 
   useEffect(() => {
     if (!editor.hasNodes([InlineImageNode])) {
-      throw new Error('ImagesPlugin: ImageNode not registered on editor');
+      throw new Error('InlineImagePlugin: ImageNode not registered on editor');
     }
 
     return mergeRegister(
@@ -58,15 +54,10 @@ export default function ImagesPlugin({
             altText: altText || file?.name || '',
           });
           if (file && onImageUpload) {
-            onImageUpload(payload).then((payload) => {
+            onImageUpload(payload).then((src) => {
+              if (!src) return;
               editor.update(() => {
-                const imageNode = $createInlineImageNode(payload);
-                imageNode.setPosition(createdNode.getPosition());
-                imageNode.setWidthAndHeight(
-                  imageNode.__width,
-                  imageNode.__height
-                );
-                createdNode.replace(imageNode);
+                createdNode.setSrc(src);
               });
             });
           }
