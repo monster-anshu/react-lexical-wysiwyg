@@ -21,14 +21,10 @@ import {
 } from './functions';
 
 interface IImageComponentProps {
-  captionsEnabled?: boolean;
   onImageUpload?(file: InsertImagePayload): Promise<string | null>;
 }
 
-export default function ImagePlugin({
-  captionsEnabled,
-  onImageUpload,
-}: IImageComponentProps) {
+export default function ImagePlugin({ onImageUpload }: IImageComponentProps) {
   const [editor] = useLexicalComposerContext();
 
   useEffect(() => {
@@ -94,7 +90,7 @@ export default function ImagePlugin({
         COMMAND_PRIORITY_HIGH
       )
     );
-  }, [captionsEnabled, editor]);
+  }, [editor]);
 
   return null;
 }

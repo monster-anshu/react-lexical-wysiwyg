@@ -21,12 +21,10 @@ import {
 import { InlineImageNode } from '@/nodes/InlineImageNode';
 
 interface IImageComponentProps {
-  captionsEnabled?: boolean;
   onImageUpload?(file: InsertInlineImagePayload): Promise<string | null>;
 }
 
 export default function InlineImagePlugin({
-  captionsEnabled,
   onImageUpload,
 }: IImageComponentProps) {
   const [editor] = useLexicalComposerContext();
@@ -95,7 +93,7 @@ export default function InlineImagePlugin({
         COMMAND_PRIORITY_HIGH
       )
     );
-  }, [captionsEnabled, editor]);
+  }, [editor]);
 
   return null;
 }
