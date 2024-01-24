@@ -1,10 +1,7 @@
 {
   "compilerOptions": {
-    "noEmit": false,
-    "declaration": true,
-    "emitDeclarationOnly": true,
-    "declarationDir": "dist",
-    "strict": true
+    "declaration": false,
+    "declarationDir": "dist"
   },
   "exclude": ["node_modules/**/*"],
   "extends": "./tsconfig.json"

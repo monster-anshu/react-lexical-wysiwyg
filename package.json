@@ -11,7 +11,7 @@
     "lint": "eslint .",
     "format": "prettier --write .",
     "prepare": "husky install",
-    "build": "rollup -c --bundleConfigAsCjs"
+    "build": "rollup -c"
   },
   "repository": {
     "type": "git",
@@ -25,10 +25,8 @@
   "homepage": "https://github.com/monster-anshu/react-lexical-wysiwyg#readme",
   "devDependencies": {
     "@babel/preset-react": "^7.23.3",
-    "@rollup/plugin-alias": "^5.1.0",
-    "@rollup/plugin-babel": "^6.0.4",
     "@rollup/plugin-commonjs": "^25.0.7",
-    "@rollup/plugin-json": "^6.1.0",
+    "@rollup/plugin-multi-entry": "^6.0.1",
     "@rollup/plugin-node-resolve": "^15.2.3",
     "@rollup/plugin-replace": "^5.0.5",
     "@rollup/plugin-terser": "^0.4.4",
@@ -63,7 +61,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "rollup": "^4.9.6",
-    "rollup-plugin-dts": "^6.1.0",
+    "rollup-plugin-generate-package-json": "^3.2.0",
     "rollup-plugin-peer-deps-external": "^2.2.4",
     "rollup-plugin-postcss": "^4.0.2",
     "sass": "^1.69.7",

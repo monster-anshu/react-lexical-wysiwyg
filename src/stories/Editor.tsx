@@ -1,6 +1,6 @@
 import Editor from '@/components/Editor';
 import ToolbarPlugin from '@/components/Toolbar';
-import '@/scss/global.scss';
+import '../index.scss';
 import { LexicalComposer } from '@lexical/react/LexicalComposer';
 import type { EditorState, LexicalEditor } from 'lexical';
 import React, { FC, useState } from 'react';

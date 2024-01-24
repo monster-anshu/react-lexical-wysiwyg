@@ -12,4 +12,5 @@ const ContentEditable: FC<IContentEditableProps> = ({ onRef }) => {
     </div>
   );
 };
+
 export default ContentEditable;

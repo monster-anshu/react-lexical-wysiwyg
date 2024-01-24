@@ -5,12 +5,7 @@
     "skipLibCheck": true,
     "jsx": "react",
     "module": "ESNext",
-    "declaration": true,
-    "declarationDir": "dist",
-    "sourceMap": true,
-    "outDir": "dist",
     "moduleResolution": "node",
-    "emitDeclarationOnly": true,
     "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true,
     "noUncheckedIndexedAccess": true,
@@ -18,7 +13,8 @@
     "paths": {
       "@/*": ["*"],
     },
+    "rootDir": "src",
   },
   "include": ["src/**/*.ts", "src/**/*.tsx"],
-  "exclude": ["node_modules", "dist"],
+  "exclude": ["node_modules", "dist", "src/**/*.stories.tsx"],
 }
