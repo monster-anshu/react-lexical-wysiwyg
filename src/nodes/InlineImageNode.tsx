@@ -127,8 +127,10 @@ export class InlineImageNode extends DecoratorNode<JSX.Element> {
     img.setAttribute('width', this.__width.toString());
     img.setAttribute('height', this.__height.toString());
     const element = document.createElement('span');
+    if (this.__position === 'left') element.classList.add('position-left');
+    if (this.__position === 'right') element.classList.add('position-right');
     element.appendChild(img);
-    element.classList.add('editor-inline-image');
+    element.classList.add('inline-editor-image');
     return { element };
   }
 

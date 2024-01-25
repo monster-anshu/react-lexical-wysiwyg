@@ -27,6 +27,8 @@ export type InsertImagePayload = {
   file?: File;
   altText?: string;
   src?: string;
+  width?: number;
+  height?: number;
 };
 
 export const INSERT_IMAGE_COMMAND: LexicalCommand<InsertImagePayload> =

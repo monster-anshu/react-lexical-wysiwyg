@@ -36,7 +36,7 @@ export function InlineImagePlugin({ onImageUpload }: IImageComponentProps) {
       editor.registerCommand(
         INSERT_INLINE_IMAGE_COMMAND,
         (payload) => {
-          const { file, src, position, altText } = payload;
+          const { file, src, position, altText, height, width } = payload;
           let url = src;
           if (file) {
             url = URL.createObjectURL(file);
@@ -48,6 +48,8 @@ export function InlineImagePlugin({ onImageUpload }: IImageComponentProps) {
             src: url,
             position,
             altText: altText || file?.name || '',
+            height,
+            width,
           });
           if (file && onImageUpload) {
             onImageUpload(payload).then((src) => {

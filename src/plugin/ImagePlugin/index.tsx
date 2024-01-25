@@ -36,7 +36,7 @@ export function ImagePlugin({ onImageUpload }: IImageComponentProps) {
       editor.registerCommand(
         INSERT_IMAGE_COMMAND,
         (payload) => {
-          const { altText, file, src } = payload;
+          const { altText, file, src, height, width } = payload;
           let url = src;
           if (file) {
             url = URL.createObjectURL(file);
@@ -47,6 +47,8 @@ export function ImagePlugin({ onImageUpload }: IImageComponentProps) {
           const createdNode = insertFromPayload({
             altText: altText || file?.name || '',
             src: url,
+            height,
+            width,
           });
           if (file && onImageUpload) {
             onImageUpload(payload).then((src) => {

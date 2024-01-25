@@ -29,6 +29,8 @@ export type InsertInlineImagePayload = {
   src?: string;
   position?: Position;
   altText?: string;
+  width?: number;
+  height?: number;
 };
 
 export const INSERT_INLINE_IMAGE_COMMAND: LexicalCommand<InsertInlineImagePayload> =
