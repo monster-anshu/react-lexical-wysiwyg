@@ -11,7 +11,7 @@
     "lint": "eslint .",
     "format": "prettier --write .",
     "prepare": "husky install",
-    "build": "rollup -c"
+    "build": "tsc && tsc-alias"
   },
   "repository": {
     "type": "git",
@@ -67,6 +67,7 @@
     "sass": "^1.69.7",
     "storybook": "^7.6.10",
     "tailwindcss": "^3.4.1",
+    "tsc-alias": "^1.8.8",
     "typescipt": "^1.0.0",
     "vite-plugin-dts": "^3.7.0",
     "vite-tsconfig-paths": "^4.2.3"

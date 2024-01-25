@@ -1,8 +1,8 @@
 import React, { ReactNode } from 'react';
 import { useCallback, useMemo, useState } from 'react';
-import Modal from '@/ui/Modal';
+import { Modal } from '@/ui/Modal';
 
-export default function useModal(): [
+export function useModal(): [
   ReactNode | null,
   (title: string, showModal: (onClose: () => void) => ReactNode) => void,
 ] {

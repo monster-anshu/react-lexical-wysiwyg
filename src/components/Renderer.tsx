@@ -4,7 +4,7 @@ export interface IRendererProps {
   children: string;
 }
 
-const Renderer: FC<IRendererProps> = ({ children }) => {
+export const Renderer: FC<IRendererProps> = ({ children }) => {
   return (
     <div
       className='ContentEditable__root text-sm'
@@ -14,5 +14,3 @@ const Renderer: FC<IRendererProps> = ({ children }) => {
     ></div>
   );
 };
-
-export default Renderer;

@@ -1,5 +1,5 @@
 import React, { FC, ReactNode, useCallback } from 'react';
-import Select from '@/ui/Select';
+import { Select } from '@/ui/Select';
 import {
   $INTERNAL_isPointSelection,
   $getSelection,
@@ -16,7 +16,7 @@ interface IFontDropDownProps {
   disabled?: boolean;
 }
 
-const FontDropDown: FC<IFontDropDownProps> = ({
+export const FontDropDown: FC<IFontDropDownProps> = ({
   editor,
   value,
   style,
@@ -67,5 +67,3 @@ const FontDropDown: FC<IFontDropDownProps> = ({
     />
   );
 };
-
-export default FontDropDown;

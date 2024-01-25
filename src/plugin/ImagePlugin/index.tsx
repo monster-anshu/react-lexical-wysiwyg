@@ -24,7 +24,7 @@ interface IImageComponentProps {
   onImageUpload?(file: InsertImagePayload): Promise<string | null>;
 }
 
-export default function ImagePlugin({ onImageUpload }: IImageComponentProps) {
+export function ImagePlugin({ onImageUpload }: IImageComponentProps) {
   const [editor] = useLexicalComposerContext();
 
   useEffect(() => {

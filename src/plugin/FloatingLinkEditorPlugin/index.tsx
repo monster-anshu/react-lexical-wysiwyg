@@ -1,12 +1,12 @@
 import { useState } from 'react';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
-import useFloatingLinkEditorToolbar from './useFloatingLinkEditorToolbar';
+import { useFloatingLinkEditorToolbar } from './useFloatingLinkEditorToolbar';
 
 interface IFloatingLinkEditorPluginProps {
   anchorElem?: HTMLElement;
 }
 
-export default function FloatingLinkEditorPlugin({
+export function FloatingLinkEditorPlugin({
   anchorElem = document.body,
 }: IFloatingLinkEditorPluginProps) {
   const [editor] = useLexicalComposerContext();

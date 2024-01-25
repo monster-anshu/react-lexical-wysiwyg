@@ -39,25 +39,31 @@ import { CiImageOn } from 'react-icons/ci';
 
 const IS_APPLE = false;
 
-import Select from '@/ui/Select';
+import { Select } from '@/ui/Select';
 import { sanitizeUrl } from '@/utils/url';
 import { BLOCK_TYPES } from '@/common';
-import ToolbarButton, { IToolbarButton } from './ToolbarButton';
-import FontDropDown from './FontDropDown';
-import Divider from './Divider';
-import ElementFormatDropdown from './ElementFormatDropdown';
-import BlockFormatDropDown from './BlockFormatDropDown';
+import { IToolbarButton, ToolbarButton } from './ToolbarButton';
+import { FontDropDown } from './FontDropDown';
+import { Divider } from './Divider';
+import { ElementFormatDropdown } from './ElementFormatDropdown';
+import { BlockFormatDropDown } from './BlockFormatDropDown';
 import { $clearFormatting } from '@/functions/clearFormatting';
 import { useFormat } from '@/hooks/useFormat';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
-import FontSize from './FontSize';
-import useModal from '@/hooks/useModal';
+import { FontSize } from './FontSize';
+import { useModal } from '@/hooks/useModal';
 
 const InsertImageDialogLazy = React.lazy(async () => {
-  return import('@/plugin/ImagePlugin/InsertImageDialog');
+  const { InsertImageDialog } = await import(
+    '@/plugin/ImagePlugin/InsertImageDialog'
+  );
+  return { default: InsertImageDialog };
 });
 const InsertInlineImageDialogLazy = React.lazy(async () => {
-  return import('@/plugin/InlineImagePlugin/InsertImageDialog');
+  const { InsertInlineImageDialog } = await import(
+    '@/plugin/InlineImagePlugin/InsertImageDialog'
+  );
+  return { default: InsertInlineImageDialog };
 });
 
 function getCodeLanguageOptions(): [string, string][] {
@@ -74,7 +80,7 @@ function getCodeLanguageOptions(): [string, string][] {
 
 const CODE_LANGUAGE_OPTIONS = getCodeLanguageOptions();
 
-export default function ToolbarPlugin({}) {
+export function Toolbar({}) {
   const [editor] = useLexicalComposerContext();
   const [modal, showModal] = useModal();
 

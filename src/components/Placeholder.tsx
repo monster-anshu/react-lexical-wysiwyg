@@ -3,7 +3,7 @@ import { twMerge } from 'tailwind-merge';
 
 export interface IPlaceholderProps extends React.ComponentProps<'div'> {}
 
-const Placeholder: FC<IPlaceholderProps> = ({
+export const Placeholder: FC<IPlaceholderProps> = ({
   className,
   children,
   ...props
@@ -20,4 +20,3 @@ const Placeholder: FC<IPlaceholderProps> = ({
     </div>
   );
 };
-export default Placeholder;

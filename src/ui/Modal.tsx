@@ -1,7 +1,7 @@
 import React, { ReactNode, useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
 
-import useOnClickOutside from '@/hooks/useOnOutsideClick';
+import { useOnClickOutside } from '@/hooks/useOnOutsideClick';
 import './Modal.css';
 import { RxCross2 } from 'react-icons/rx';
 
@@ -62,6 +62,6 @@ function PortalImpl({
   );
 }
 
-export default function Modal(props: IModalProps) {
+export function Modal(props: IModalProps) {
   return createPortal(<PortalImpl {...props}></PortalImpl>, document.body);
 }

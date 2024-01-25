@@ -1,8 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { LexicalEditor } from 'lexical';
-import Button from '@/ui/Button';
-import FileInput from '@/ui/FileInput';
-import TextInput from '@/ui/TextInput';
+import { Button } from '@/ui/Button';
+import { FileInput } from '@/ui/FileInput';
+import { TextInput } from '@/ui/TextInput';
 import {
   INSERT_INLINE_IMAGE_COMMAND,
   InsertInlineImagePayload,
@@ -116,7 +116,7 @@ export interface IInsertInlineImageProps {
   onClose: () => void;
 }
 
-export default function InsertInlineImageDialog({
+export function InsertInlineImageDialog({
   activeEditor,
   onClose,
 }: IInsertInlineImageProps) {

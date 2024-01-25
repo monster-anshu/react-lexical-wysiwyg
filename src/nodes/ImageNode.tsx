@@ -13,7 +13,11 @@ import type {
 
 import { $applyNodeReplacement, DecoratorNode } from 'lexical';
 
-const ImageComponent = React.lazy(() => import('./ImageComponent'));
+const ImageComponent = React.lazy(() =>
+  import('./ImageComponent').then((module) => ({
+    default: module.ImageComponent,
+  }))
+);
 
 export interface ImagePayload {
   altText: string;

@@ -23,7 +23,7 @@ export interface IImageResizerProps {
   onResizeStart: () => void;
 }
 
-export default function ImageResizer({
+export function ImageResizer({
   onResizeStart,
   onResizeEnd,
   imageRef,

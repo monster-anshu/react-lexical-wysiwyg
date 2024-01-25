@@ -36,7 +36,7 @@ import {
   MdFormatQuote,
 } from 'react-icons/md';
 
-import Select from '@/ui/Select';
+import { Select } from '@/ui/Select';
 import { BlockType } from '@/common';
 
 export interface IBlockFormatProps {
@@ -45,7 +45,7 @@ export interface IBlockFormatProps {
   disabled?: boolean;
 }
 
-const BlockFormatDropDown: FC<IBlockFormatProps> = ({
+export const BlockFormatDropDown: FC<IBlockFormatProps> = ({
   editor,
   blockType,
   disabled = false,
@@ -204,5 +204,3 @@ const BlockFormatDropDown: FC<IBlockFormatProps> = ({
     />
   );
 };
-
-export default BlockFormatDropDown;

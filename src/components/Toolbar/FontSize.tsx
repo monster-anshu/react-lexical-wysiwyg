@@ -12,7 +12,7 @@ enum UpdateFontSizeType {
   decrement,
 }
 
-export default function FontSize({
+export function FontSize({
   selectionFontSize,
   disabled,
   editor,

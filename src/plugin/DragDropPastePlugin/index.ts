@@ -13,7 +13,7 @@ const ACCEPTABLE_IMAGE_TYPES = [
   'image/webp',
 ];
 
-export default function DragDropPaste(): null {
+export function DragDropPaste(): null {
   const [editor] = useLexicalComposerContext();
   useEffect(() => {
     return editor.registerCommand(

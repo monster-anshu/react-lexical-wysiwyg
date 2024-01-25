@@ -1,4 +1,4 @@
-import useOnClickOutside from '@/hooks/useOnOutsideClick';
+import { useOnClickOutside } from '@/hooks/useOnOutsideClick';
 import { normalize } from '@/utils/normalize';
 import React, {
   ReactNode,
@@ -24,7 +24,7 @@ export interface ISelectProps<Option extends SelectOption = SelectOption> {
   disabled?: boolean;
 }
 
-const Select = <Option extends SelectOption>({
+export const Select = <Option extends SelectOption>({
   onChange,
   options,
   value,
@@ -157,5 +157,3 @@ const Select = <Option extends SelectOption>({
     </div>
   );
 };
-
-export default Select;

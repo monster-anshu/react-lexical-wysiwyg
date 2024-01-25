@@ -8,7 +8,7 @@ export interface IButtonProps extends React.ComponentProps<'button'> {
   size?: 'sm' | 'md' | 'lg';
 }
 
-const Button: FC<IButtonProps> = ({
+export const Button: FC<IButtonProps> = ({
   loading = false,
   children,
   className,
@@ -56,5 +56,3 @@ const Spinner = () => (
     />
   </div>
 );
-
-export default Button;

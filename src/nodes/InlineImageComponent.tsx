@@ -23,13 +23,13 @@ import {
   SELECTION_CHANGE_COMMAND,
 } from 'lexical';
 
-import useModal from '@/hooks/useModal';
-import Button from '@/ui/Button';
-import TextInput from '@/ui/TextInput';
+import { useModal } from '@/hooks/useModal';
+import { Button } from '@/ui/Button';
+import { TextInput } from '@/ui/TextInput';
 import { $isInlineImageNode, InlineImageNode } from './InlineImageNode';
 import { LazyImage } from './LazyImage';
 import { twMerge } from 'tailwind-merge';
-import ImageResizer from '@/ui/ImageResizer';
+import { ImageResizer } from '@/ui/ImageResizer';
 import { RIGHT_CLICK_IMAGE_COMMAND } from './ImageComponent';
 
 export interface IInlineImageComponentProps {
@@ -41,7 +41,7 @@ export interface IInlineImageComponentProps {
   position: Position;
 }
 
-export default function InlineImageComponent({
+export function InlineImageComponent({
   src,
   altText,
   nodeKey,

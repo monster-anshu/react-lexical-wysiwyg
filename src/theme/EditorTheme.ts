@@ -1,7 +1,7 @@
 import type { EditorThemeClasses } from 'lexical';
 import './theme.scss';
 
-const theme: EditorThemeClasses = {
+export const theme: EditorThemeClasses = {
   blockCursor: 'EditorTheme__blockCursor',
   characterLimit: 'EditorTheme__characterLimit',
   code: 'EditorTheme__code',
@@ -105,5 +105,3 @@ const theme: EditorThemeClasses = {
   image: 'editor-image',
   inlineImage: 'inline-editor-image',
 };
-
-export default theme;

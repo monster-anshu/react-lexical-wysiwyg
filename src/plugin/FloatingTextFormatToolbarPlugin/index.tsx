@@ -1,7 +1,6 @@
 import React from 'react';
 import { createPortal } from 'react-dom';
-
-import TextFormatFloatingToolbar from './TextFormatFloatingToolbar';
+import { TextFormatFloatingToolbar } from './TextFormatFloatingToolbar';
 import { useFormat } from '@/hooks/useFormat';
 
 function useFloatingTextFormatToolbar(anchorElem: HTMLElement) {
@@ -39,7 +38,7 @@ function useFloatingTextFormatToolbar(anchorElem: HTMLElement) {
   );
 }
 
-export default function FloatingTextFormatToolbarPlugin({
+export function FloatingTextFormatToolbarPlugin({
   anchorElem = document.body,
 }: {
   anchorElem?: HTMLElement;

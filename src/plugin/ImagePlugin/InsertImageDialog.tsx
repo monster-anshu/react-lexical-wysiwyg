@@ -1,8 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { LexicalEditor } from 'lexical';
-import Button from '@/ui/Button';
-import FileInput from '@/ui/FileInput';
-import TextInput from '@/ui/TextInput';
+import { Button } from '@/ui/Button';
+import { FileInput } from '@/ui/FileInput';
+import { TextInput } from '@/ui/TextInput';
 import { INSERT_IMAGE_COMMAND, InsertImagePayload } from './functions';
 
 interface InsertImageUploadedDialogBodyProps {
@@ -83,7 +83,7 @@ export interface IInsertImageProps {
   onClose: () => void;
 }
 
-export default function InsertImageDialog({
+export function InsertImageDialog({
   activeEditor,
   onClose,
 }: IInsertImageProps) {

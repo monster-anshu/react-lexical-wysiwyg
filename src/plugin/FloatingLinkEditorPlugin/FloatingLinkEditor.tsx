@@ -28,7 +28,7 @@ interface IFLoatingLinkEditorProps {
   setIsLinkEditMode: Dispatch<boolean>;
 }
 
-export default function FloatingLinkEditor({
+export function FloatingLinkEditor({
   editor,
   isLink,
   anchorElem,

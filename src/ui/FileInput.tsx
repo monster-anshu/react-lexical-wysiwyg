@@ -7,11 +7,7 @@ type IFileInputProps = Readonly<{
   onChange: (files: FileList | null) => void;
 }>;
 
-export default function FileInput({
-  accept,
-  label,
-  onChange,
-}: IFileInputProps) {
+export function FileInput({ accept, label, onChange }: IFileInputProps) {
   const id = useId();
   const [selectedFile, setSelectedFile] = useState<FileList | null>(null);
   const fileName = selectedFile?.item(0)?.name;

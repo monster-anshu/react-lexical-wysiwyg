@@ -24,7 +24,7 @@ import { $isImageNode } from './ImageNode';
 
 import { twMerge } from 'tailwind-merge';
 import { LazyImage } from './LazyImage';
-import ImageResizer from '@/ui/ImageResizer';
+import { ImageResizer } from '@/ui/ImageResizer';
 
 export const RIGHT_CLICK_IMAGE_COMMAND: LexicalCommand<MouseEvent> =
   createCommand('RIGHT_CLICK_IMAGE_COMMAND');
@@ -39,7 +39,7 @@ export interface IImageComponentProps {
   width: 'inherit' | number;
 }
 
-export default function ImageComponent({
+export function ImageComponent({
   src,
   altText,
   nodeKey,

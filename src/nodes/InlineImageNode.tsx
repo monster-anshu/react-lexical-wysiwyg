@@ -13,7 +13,11 @@ import type {
 
 import { $applyNodeReplacement, DecoratorNode } from 'lexical';
 
-const InlineImageComponent = React.lazy(() => import('./InlineImageComponent'));
+const InlineImageComponent = React.lazy(() =>
+  import('./InlineImageComponent').then((module) => ({
+    default: module.InlineImageComponent,
+  }))
+);
 
 export type Position = 'left' | 'right' | 'full' | undefined;
 

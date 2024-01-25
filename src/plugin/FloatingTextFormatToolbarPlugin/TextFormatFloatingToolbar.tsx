@@ -22,7 +22,8 @@ import {
   MdSuperscript,
   MdSubscript,
 } from 'react-icons/md';
-import ToolbarButton, {
+import {
+  ToolbarButton,
   IToolbarButton,
 } from '@/components/Toolbar/ToolbarButton';
 
@@ -40,7 +41,7 @@ interface ITextFormatFloatingToolbarProps {
 }
 
 const IS_APPLE = navigator.platform.match(/(Mac|iPhone|iPod|iPad)/i) !== null;
-export default function TextFormatFloatingToolbar({
+export function TextFormatFloatingToolbar({
   editor,
   anchorElem,
   isLink,

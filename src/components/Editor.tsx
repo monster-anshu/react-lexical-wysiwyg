@@ -1,8 +1,9 @@
 import React, { FC, ReactNode } from 'react';
-import ContentEditable, {
+import {
+  ContentEditable,
   IContentEditableProps,
 } from '@/components/ContentEditable';
-import Placeholder from '@/components/Placeholder';
+import { Placeholder } from '@/components/Placeholder';
 import LexicalErrorBoundary from '@lexical/react/LexicalErrorBoundary';
 import { HistoryPlugin } from '@lexical/react/LexicalHistoryPlugin';
 import { OnChangePlugin } from '@lexical/react/LexicalOnChangePlugin';
@@ -16,7 +17,7 @@ export interface IEditorProps {
   children?: ReactNode;
 }
 
-const Editor: FC<IEditorProps> = ({
+export const Editor: FC<IEditorProps> = ({
   onChangePluginProps,
   placeholder,
   children,
@@ -35,4 +36,3 @@ const Editor: FC<IEditorProps> = ({
     </div>
   );
 };
-export default Editor;

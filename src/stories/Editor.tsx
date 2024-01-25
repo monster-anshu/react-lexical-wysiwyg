@@ -1,24 +1,24 @@
-import Editor from '@/components/Editor';
-import ToolbarPlugin from '@/components/Toolbar';
+import { Editor } from '@/components/Editor';
+import { Toolbar } from '@/components/Toolbar';
 import '../index.scss';
 import { LexicalComposer } from '@lexical/react/LexicalComposer';
 import type { EditorState, LexicalEditor } from 'lexical';
 import React, { FC, useState } from 'react';
-import theme from '@/theme/EditorTheme';
-import Nodes from '@/nodes';
+import { theme } from '@/theme/EditorTheme';
+import { Nodes } from '@/nodes';
 
 import { ListPlugin } from '@lexical/react/LexicalListPlugin';
 import { CheckListPlugin } from '@lexical/react/LexicalCheckListPlugin';
 
-import ImagesPlugin from '@/plugin/ImagePlugin';
-import DragDropPaste from '@/plugin/DragDropPastePlugin';
-import InlineImagePlugin from '@/plugin/InlineImagePlugin';
-import FloatingLinkEditorPlugin from '@/plugin/FloatingLinkEditorPlugin';
-import LinkPlugin from '@/plugin/LinkPlugin';
+import { ImagePlugin } from '@/plugin/ImagePlugin';
+import { DragDropPaste } from '@/plugin/DragDropPastePlugin';
+import { InlineImagePlugin } from '@/plugin/InlineImagePlugin';
+import { FloatingLinkEditorPlugin } from '@/plugin/FloatingLinkEditorPlugin';
+import { LinkPlugin } from '@/plugin/LinkPlugin';
 import { prepopulatedRichText } from './test';
-import FloatingTextFormatToolbarPlugin from '@/plugin/FloatingTextFormatToolbarPlugin';
+import { FloatingTextFormatToolbarPlugin } from '@/plugin/FloatingTextFormatToolbarPlugin';
 import { $generateHtmlFromNodes } from '@lexical/html';
-import Renderer from '@/components/Renderer';
+import { Renderer } from '@/components/Renderer';
 
 export interface IExampleEditorProps {
   onChange: (state: EditorState, editor: LexicalEditor) => void;
@@ -53,7 +53,7 @@ const ExampleEditor: FC<IExampleEditorProps> = ({ onChange }) => {
             },
           }}
         >
-          <ToolbarPlugin />
+          <Toolbar />
           <Editor
             onChangePluginProps={{
               onChange: (state, editor) => {
@@ -69,7 +69,7 @@ const ExampleEditor: FC<IExampleEditorProps> = ({ onChange }) => {
             }}
             placeholder='Type something...'
           >
-            <ImagesPlugin />
+            <ImagePlugin />
             <InlineImagePlugin />
             <DragDropPaste />
             <LinkPlugin />
@@ -86,4 +86,5 @@ const ExampleEditor: FC<IExampleEditorProps> = ({ onChange }) => {
     </>
   );
 };
+
 export default ExampleEditor;

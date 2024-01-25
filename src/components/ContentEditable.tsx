@@ -5,12 +5,10 @@ export interface IContentEditableProps {
   onRef?: (ele: HTMLDivElement) => void | RefObject<HTMLDivElement>;
 }
 
-const ContentEditable: FC<IContentEditableProps> = ({ onRef }) => {
+export const ContentEditable: FC<IContentEditableProps> = ({ onRef }) => {
   return (
     <div ref={onRef}>
-      <LexicalContentEditable className='ContentEditable__root h-56 overflow-auto px-4 py-2 text-sm focus:outline-none' />
+      <LexicalContentEditable className='ContentEditable__root h-48 overflow-auto px-4 py-2 text-sm focus:outline-none' />
     </div>
   );
 };
-
-export default ContentEditable;

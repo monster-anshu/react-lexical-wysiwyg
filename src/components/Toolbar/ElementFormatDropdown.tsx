@@ -1,4 +1,4 @@
-import Select from '@/ui/Select';
+import { Select } from '@/ui/Select';
 import {
   ElementFormatType,
   LexicalEditor,
@@ -8,7 +8,7 @@ import {
 } from 'lexical';
 
 import React, { FC } from 'react';
-import Divider from './Divider';
+import { Divider } from './Divider';
 import {
   MdFormatAlignLeft,
   MdFormatIndentIncrease,
@@ -25,7 +25,7 @@ export interface IElementFormatDropdownProps {
   disabled: boolean;
 }
 
-const ElementFormatDropdown: FC<IElementFormatDropdownProps> = ({
+export const ElementFormatDropdown: FC<IElementFormatDropdownProps> = ({
   disabled,
   editor,
   isRTL,
@@ -105,5 +105,3 @@ const ElementFormatDropdown: FC<IElementFormatDropdownProps> = ({
     </>
   );
 };
-
-export default ElementFormatDropdown;

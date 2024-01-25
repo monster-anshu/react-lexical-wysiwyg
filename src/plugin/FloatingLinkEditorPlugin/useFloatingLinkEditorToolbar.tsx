@@ -10,10 +10,10 @@ import {
 import { createPortal } from 'react-dom';
 import { $isLinkNode } from '@lexical/link';
 import { getSelectedNode } from '@/utils/getSelectedNode';
-import FloatingLinkEditor from './FloatingLinkEditor';
+import { FloatingLinkEditor } from './FloatingLinkEditor';
 import { useFormat } from '@/hooks/useFormat';
 
-export default function useFloatingLinkEditorToolbar(
+export function useFloatingLinkEditorToolbar(
   editor: LexicalEditor,
   anchorElem: HTMLElement,
   isLinkEditMode: boolean,

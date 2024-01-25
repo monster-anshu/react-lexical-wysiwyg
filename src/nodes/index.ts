@@ -14,7 +14,7 @@ import { TableCellNode, TableNode, TableRowNode } from '@lexical/table';
 import { ImageNode } from './ImageNode';
 import { InlineImageNode } from './InlineImageNode';
 
-const Nodes: Array<Klass<LexicalNode>> = [
+export const Nodes: Array<Klass<LexicalNode>> = [
   HeadingNode,
   ListNode,
   ListItemNode,
@@ -33,5 +33,3 @@ const Nodes: Array<Klass<LexicalNode>> = [
   ImageNode,
   InlineImageNode,
 ];
-
-export default Nodes;

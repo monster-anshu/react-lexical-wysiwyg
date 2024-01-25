@@ -14,7 +14,7 @@ export interface IToolbarButton {
 
 export interface IToolbarButtonProps extends IToolbarButton {}
 
-const ToolbarButton: FC<IToolbarButtonProps> = ({
+export const ToolbarButton: FC<IToolbarButtonProps> = ({
   handler,
   icon,
   label,
@@ -43,5 +43,3 @@ const ToolbarButton: FC<IToolbarButtonProps> = ({
     </div>
   );
 };
-
-export default ToolbarButton;
