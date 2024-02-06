@@ -19,6 +19,7 @@ import { prepopulatedRichText } from './test';
 import { FloatingTextFormatToolbarPlugin } from '@/plugin/FloatingTextFormatToolbarPlugin';
 import { $generateHtmlFromNodes } from '@lexical/html';
 import { Renderer } from '@/components/Renderer';
+import LexicalAutoLinkPlugin from '@/plugin/AutoLinkPlugin';
 
 export interface IExampleEditorProps {
   onChange: (state: EditorState, editor: LexicalEditor) => void;
@@ -79,6 +80,7 @@ const ExampleEditor: FC<IExampleEditorProps> = ({ onChange }) => {
             <FloatingTextFormatToolbarPlugin />
             <ListPlugin />
             <CheckListPlugin />
+            <LexicalAutoLinkPlugin />
           </Editor>
         </LexicalComposer>
       </div>

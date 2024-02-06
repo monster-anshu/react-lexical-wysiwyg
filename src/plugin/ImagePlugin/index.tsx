@@ -51,12 +51,18 @@ export function ImagePlugin({ onImageUpload }: IImageComponentProps) {
             width,
           });
           if (file && onImageUpload) {
-            onImageUpload(payload).then((src) => {
-              if (!src) return;
-              editor.update(() => {
-                createdNode.setSrc(src);
+            onImageUpload(payload)
+              .then((payload) => {
+                if (!payload) return;
+                editor.update(() => {
+                  createdNode.setSrc(payload);
+                });
+              })
+              .catch(() => {
+                editor.update(() => {
+                  createdNode.remove();
+                });
               });
-            });
           }
           return true;
         },

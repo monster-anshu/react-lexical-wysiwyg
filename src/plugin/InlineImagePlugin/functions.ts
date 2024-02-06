@@ -69,9 +69,9 @@ export function onDragStart(event: DragEvent): boolean {
     JSON.stringify({
       data: {
         altText: node.__altText,
-        height: node.__height,
         key: node.getKey(),
         src: node.__src,
+        height: node.__height,
         width: node.__width,
       },
       type: 'image',
@@ -110,7 +110,7 @@ export function onDrop(event: DragEvent, editor: LexicalEditor): boolean {
       rangeSelection.applyDOMRange(range);
     }
     $setSelection(rangeSelection);
-    editor.dispatchCommand(INSERT_INLINE_IMAGE_COMMAND, data);
+    editor.dispatchCommand(MOVE_INLINE_IMAGE_COMMAND, data);
   }
   return true;
 }
@@ -125,9 +125,7 @@ export function getImageNodeInSelection(): InlineImageNode | null {
   return $isInlineImageNode(node) ? node : null;
 }
 
-export function getDragImageData(
-  event: DragEvent
-): null | InsertInlineImagePayload {
+export function getDragImageData(event: DragEvent): null | InlineImagePayload {
   const dragData = event.dataTransfer?.getData('application/x-lexical-drag');
   if (!dragData) {
     return null;

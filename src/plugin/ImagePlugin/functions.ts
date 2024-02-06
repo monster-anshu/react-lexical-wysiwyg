@@ -68,10 +68,9 @@ export function onDragStart(event: DragEvent): boolean {
     JSON.stringify({
       data: {
         altText: node.__altText,
-        height: node.__height,
         key: node.getKey(),
-        maxWidth: node.__maxWidth,
         src: node.__src,
+        height: node.__height,
         width: node.__width,
       },
       type: 'image',
